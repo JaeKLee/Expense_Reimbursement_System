@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ditto Reimbursement System</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+	<div id="hideDiv" style="visibility: hidden">
+
+
+
+		<div class="container-fluid">
+
+			<div class="row ">
+				<div class="d-flex justify-content-between flex-shrink-0 p-3 text-white bg-dark ">
+
+					<div class="d-flex">
+						<span class="fs-4">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bank2" viewBox="0 0 20 20">
+								<path d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 1 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916l-7.5-5zM12.375 6v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zM8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM.5 15a.5.5 0 0 0 0 1h15a.5.5 0 1 0 0-1H.5z"/>
+							  </svg>
+							Reimbursement
+						</span>
+					</div>
+
+					<div class="d-flex">
+						<span class="fs-4">
+							<a href="/" id="logout"  class="text-white text-decoration-none">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+									<path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+									<path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z"/>
+								</svg>
+							</a>
+						</span>
+					</div>
+
+
+				</div>
+
+
+				<main role="main" class="ml-sm-auto pt-3 px-4">
+					<h1 id="welcomeId"></h1>
+
+					<p id="information"></p>
+
+
+
+					<div class="row justify-content-between">
+
+						<div class="col">
+							<!-- Button to trigger reimbursement modal -->
+							<button type="button" id="createModalBtn" class="btn btn-outline-dark" data-bs-toggle="modal"
+								data-bs-target="#createModal" style="visibility: hidden">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 20 20">
+									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+								  </svg>
+								Create New Reimbursement
+								
+							</button>
+
+
+
+
+
+						</div>
+
+						<!-- Filter Dropdown -->
+						<div class="col-sm-2 ">
+							<select id="filterDropdown" class="form-select">
+								<option value="none" selected disabled hidden>
+									Select an Option
+								</option>
+								<option value="All">Clear Filter</option>
+								<option value="Pending">Pending</option>
+								<option value="Approved">Approved</option>
+								<option value="Denied">Denied</option>
+							</select>
+						</div>
+
+					</div>
+
+
+					<table id="reimbTable" class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th scope="col" class="col">ID</th>
+								<th scope="col" class="col">Amount</th>
+								<th scope="col" class="col-3">Description</th>
+								<th scope="col" class="col-2">Created By</th>
+								<th scope="col" class="col-2">Submitted Time</th>
+								<th scope="col" class="col-2">Resolved By</th>
+								<th scope="col" class="col-2">Resolved Time</th>
+								<th scope="col" class="col">Type</th>
+								<th scope="col" class="col-2">Status</th>
+								<!-- <th scope="col" class="col"></th> -->
+								<!-- 10 ths -->
+							</tr>
+						</thead>
+						<tbody id="reimbBody">
+						</tbody>
+					</table>
+
+				</main>
+
+			</div> <!-- end of row  -->
+		</div> <!-- end of container-fluid -->
+		<div class="d-flex justify-content-center align-items-center">
+
+			<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
+			<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png">
+			<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png">
+			<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/132.png">
+		</div>
+	</div><!-- end of hideDiv  -->
+
+	<!-- Create Reimbursement Modal -->
+	<div class="modal fade" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="createModalLabel" aria-hidden="true">
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="createModalLabel">
+						Create New Reimbursement
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<!-- this is the X in the top -->
+				</div>
+				<div class="modal-body">
+					<form id="createReimbForm">
+						<div class="row mb-3">
+							<div class="col">
+								<label for="fname" class="form-label">First Name</label>
+								<input type="text" class="form-control" id="fname" aria-describedby="firstname"
+									disabled>
+							</div>
+							<div class="col">
+								<label for="lname" class="form-label">Last Name</label>
+								<input type="text" class="form-control" id="lname" aria-describedby="lastname" disabled>
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<div class="col">
+								<label for="amount" class="form-label">Amount</label>
+								<div class="input-group">
+									<span class="input-group-text">$</span>
+									<input type="text" class="form-control" id="amount" name="amount"
+										aria-describedby="reimbAmount" required>
+								</div>
+							</div>
+
+							<div class="col ">
+								<label for="type" class="form-label">Type</label>
+								<select id="createSelectType" class="form-select" form="createReimbForm" required>
+									<option value="" selected disabled hidden>
+										Select an Option
+									</option>
+									<option value="1">Supply</option>
+									<option value="2">Trip</option>
+									<option value="3">Misc</option>
+								</select>
+							</div>
+
+						</div>
+
+						<div class="mb-3">
+							<label for="description" class="form-label">Description</label>
+							<input class="form-control" id="description" name="description"></input>
+						</div>
+
+
+						<div class="row justify-content-center gap-3">
+							<button type="button" class="btn btn-secondary col-3" data-bs-dismiss="modal">Close</button>
+							<button type="submit" id="createSubmit" class="btn btn-primary col-3">Submit</button>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<div class="form-text">
+						If you're information is wrong, please contact the administrator at <span
+							class="fw-bold">admin@thisisafake.com</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- End of modal  -->
+
+	<!-- Edit Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="editModalLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">
+					<form id="editReimb">
+
+						<div class="row mb-3 ">
+							<div class="col-2">
+								<label for="editReimbId" class="form-label">ID</label>
+								<input type="text" class="form-control" id="editReimbId" aria-describedby="reimbId"
+									disabled>
+							</div>
+							<div class="col">
+								<label for="editAuthName" class="form-label">Created By (First name, Last name)</label>
+								<input type="text" class="form-control" id="editAuthName" aria-describedby="authname"
+									disabled>
+							</div>
+
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<label for="editAmount" class="form-label">Amount</label>
+								<div class="input-group">
+									<span class="input-group-text">$</span>
+									<input type="text" class="form-control" id="editAmount"
+										aria-describedby="reimbAmount" disabled>
+								</div>
+							</div>
+
+							<div class="col">
+								<label for="editType" class="form-label">Type</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="editType" disabled>
+								</div>
+							</div>
+							<div class="col">
+								<label for="editStatus" class="form-label">Status</label>
+								<select id="editStatus" class="form-select" form="editReimb">
+									<option value="" selected disabled hidden>
+										Pending
+									</option>
+									<option value="1">Approved</option>
+									<option value="2">Denied</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="editdesc" class="form-label">Description</label>
+							<textarea class="form-control" id="editdesc" rows="6" disabled></textarea>
+						</div>
+
+						<div class="row justify-content-center gap-3">
+							<button type="button" class="btn btn-secondary col-3" data-bs-dismiss="modal">Close</button>
+							<button type="submit" id="updateStatus" class="btn btn-primary col-3">Submit</button>
+						</div>
+
+
+					</form>
+
+
+				</div>
+
+				<div class="modal-footer">
+					<div class="form-text">
+						If you're information is wrong, please contact the administrator at <span
+							class="fw-bold">admin@thisisafake.com</span>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<script type="text/javascript" src="../js/homepage.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
